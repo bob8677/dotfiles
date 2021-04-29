@@ -1,0 +1,5 @@
+abbr gco="git checkout"
+abbr v="nvim"
+abbr Y="yay"
+abbr yc="yadm commit -p"
+abbr yv="yadm enter nvim"
