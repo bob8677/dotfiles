@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# instantOS quickmenu script
+
+touchscreen='pointer:ELAN2514:00 04F3:2808'
+
+if (xinput --list-props "$touchscreen" | grep 'Device Enabled (.*):' | grep '1$'); then
+	xinput disable "$touchscreen"
+else
+	xinput enable "$touchscreen"
+fi
