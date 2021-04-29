@@ -12,3 +12,6 @@ zstyle ':fzf-tab:*' fzf-bindings 'backward-eof:abort'
 zstyle ':fzf-tab:*' query-string
 
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
+
+zinit ice wait lucid
+zinit light 'olets/zsh-abbr'
