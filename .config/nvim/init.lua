@@ -18,3 +18,8 @@ require 'keybindings'
 
 -- Import lsp configuration
 require 'lsp'
+
+-- Import firenvim configuration
+if vim.g.started_by_firenvim ~= nil then
+	vim.cmd'source ~/.config/nvim/firenvim.vim'
+end
