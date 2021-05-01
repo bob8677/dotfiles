@@ -1,5 +1,3 @@
-colorscheme blue
-
 let g:firenvim_config = { 
     \ 'localSettings': {
         \ '.*': {
