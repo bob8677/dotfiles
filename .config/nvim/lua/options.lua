@@ -16,15 +16,19 @@ end
 
 opt('o', 'mouse', 'a')                                        -- Use the mouse
 opt('o', 'updatetime', 100)                                   -- Update the swap file quickly - for gitgutter
-opt('o', 'termguicolors', true)                                   -- Update the swap file quickly - for gitgutter
+opt('o', 'termguicolors', true)                               -- Enable full colors in term
 opt('o', 'clipboard', 'unnamedplus')                          -- Use the system clipboard
 opt('o', 'completeopt', 'menuone,noinsert,noselect')          -- Use the system clipboard
 opt('o', 'shortmess', vim.o.shortmess .. 'c')
 opt('o', 'guifont', 'FiraCode Nerd Font:style=Light,Regular') -- Font for gui
-opt('w', 'scrolloff', 6)                                      -- Start moving the view with 6 lines left from the bottom
+opt('w', 'scrolloff', 6)                                      -- Start moving the view with 6 lines from the bottom
 opt('w', 'signcolumn', "yes")                                 -- Always show sign column
 opt('w', 'number', true)                                      -- Show line numbers
 opt('w', 'relativenumber', true)                              -- Relative line numbers
+opt('w', 'foldmethod', 'expr')                                -- TS based folding
+opt('w', 'foldexpr', 'nvim_treesitter#foldexpr()')            -- TS based folding
+opt('o', 'foldlevelstart', 999)                               -- Open all folds at start
+vim.cmd'set list listchars=tab:\\|\\ ,trail:-,nbsp:+'         -- Display line for tab
 
 -- highlight on yank
 vim.cmd 'au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}'
@@ -65,3 +69,20 @@ function my_custom_picker(results)
     },
   }:find()
 end
+
+-- Treesitter configuration
+require'nvim-treesitter.configs'.setup {
+  -- Modules and its options go here
+  highlight = { enable = true },
+  indent = { enable = true },
+  refactor = {
+    highlight_definitions = { enable = true },
+    navigation = {
+      enable = true,
+      keymaps = {
+        goto_next_usage = "]r",
+        goto_previous_usage = "[r",
+      },
+    },
+  },
+}
