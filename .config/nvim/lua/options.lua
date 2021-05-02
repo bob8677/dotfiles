@@ -27,7 +27,11 @@ opt('w', 'relativenumber', true)                              -- Relative line n
 opt('w', 'foldmethod', 'expr')                                -- TS based folding
 opt('w', 'foldexpr', 'nvim_treesitter#foldexpr()')            -- TS based folding
 opt('o', 'foldlevelstart', 999)                               -- Open all folds at start
-vim.cmd'set list listchars=tab:\\|\\ ,trail:-,nbsp:+'         -- Display line for tab
+opt('o', 'tabstop', 4)                               -- Open all folds at start
+
+vim.cmd 'let g:indent_blankline_use_treesitter = v:true'
+vim.cmd "let g:indent_blankline_context_patterns = ['class']"
+vim.cmd 'let g:indent_blankline_strict_tabs = v:true'
 
 -- highlight on yank
 vim.cmd 'au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}'
@@ -53,7 +57,6 @@ vim.g.completion_chain_complete_list = {
 require'nvim-treesitter.configs'.setup {
   -- Modules and its options go here
   highlight = { enable = true },
-  indent = { enable = true },
   refactor = {
     highlight_definitions = { enable = true },
     navigation = {
@@ -64,6 +67,8 @@ require'nvim-treesitter.configs'.setup {
       },
     },
   },
+  autopairs = { enable = true },
+  playground = { enable = true },
 }
 
 -- Config to cursor animation when switching buffers and things
@@ -95,6 +100,15 @@ require('gitsigns').setup {
     changedelete = {hl = 'GitGutterChange', text = '~', numhl='GitGutterChange', linehl='GitSignsChangeLn'},
   },
   yadm = {
-    enable = os.execute('git rev-parse --git-dir') == 32768
+    -- dumb hacky way to see if we are in a git repo
+    enable = os.execute('git rev-parse --git-dir > /dev/null 2>&1') == 32768
   },
+}
+
+-- Git
+require'neogit'.setup {}
+
+-- Autopairs
+require'nvim-autopairs'.setup {
+  check_ts = true,
 }

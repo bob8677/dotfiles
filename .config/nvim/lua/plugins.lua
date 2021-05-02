@@ -13,50 +13,63 @@ vim.cmd 'packadd paq-nvim'              -- Load paq (package manager)
 local paq = require'paq-nvim'.paq       -- Import module and bind `paq` function
 paq{'savq/paq-nvim', opt=true}          -- Let Paq manage itself
 
--- Lsp
-paq 'neovim/nvim-lspconfig'             -- Configuration for built in lsp
-paq 'nvim-lua/completion-nvim'          -- Completion for built in lsp
+local function install(packages)
+  for i, package in ipairs(packages) do
+    paq(package)
+	end
+end
 
--- Treesitter
-paq {'nvim-treesitter/nvim-treesitter', -- Treesitter for syntax highlighting
-  run=vim.fn['TSUpdate']}
-paq 'romgrk/nvim-treesitter-context'    -- Add context to the top of the buffer using TS
-paq 'p00f/nvim-ts-rainbow'              -- Rainbow code using TS
-paq 'nvim-treesitter/nvim-treesitter-refactor'
+install {
+  -- Lsp
+  'neovim/nvim-lspconfig',             -- Configuration for built in lsp
+  'nvim-lua/completion-nvim',          -- Completion for built in lsp
 
+  -- Treesitter
+  {'nvim-treesitter/nvim-treesitter',  -- Treesitter for syntax highlighting
+    run=vim.fn['TSUpdate']},
+  'romgrk/nvim-treesitter-context',    -- Add context to the top of the buffer using TS
+  'nvim-treesitter/nvim-treesitter-refactor',
+  -- 'nvim-treesitter/playground',        -- View treesitter info in nvim
 
--- Git
-paq 'tpope/vim-fugitive'                -- Git integration
-paq 'lewis6991/gitsigns.nvim'           -- Add diff info to the sign column
+  -- Git
+  'TimUntersberger/neogit',            -- Git integration
+  'lewis6991/gitsigns.nvim',           -- Add diff info to the sign column
 
--- Fuzzy finder
-paq 'nvim-telescope/telescope.nvim'     -- Fuzzy finder made in lua
-paq 'nvim-lua/popup.nvim'               -- Needed for telescope
-paq 'nvim-lua/plenary.nvim'             -- Needed for telescope
+  -- Fuzzy finder
+  'nvim-telescope/telescope.nvim',     -- Fuzzy finder made in lua
+  'nvim-lua/popup.nvim',               -- Needed for telescope
+  'nvim-lua/plenary.nvim',             -- Needed for telescope
 
--- Whitespace
-paq 'junegunn/vim-easy-align'           -- Alignment plugin
+  -- Whitespace
+  'junegunn/vim-easy-align',           -- Alignment plugin
+  {                                    -- Indentation lines
+    'lukas-reineke/indent-blankline.nvim',
+    branch='lua',
+  },
 
--- Statusline
-paq 'itchyny/lightline.vim'             -- Lightline
-paq 'mengelbrecht/lightline-bufferline' -- Bufferline for lightline
+  -- Statusline
+  'itchyny/lightline.vim',             -- Lightline
+  'mengelbrecht/lightline-bufferline', -- Bufferline for lightline
 
--- Surrounding '', "", (), [], ()
-paq 'tpope/vim-surround'                -- Edit surrounding '', (), {}, [], and even html
-paq 'jiangmiao/auto-pairs'              -- Automatically input pairs of '', (), etc
+  -- Surrounding '', "", (), [], ()
+  'tpope/vim-surround',                -- Edit surrounding '', (), {}, [], and even html
+  'windwp/nvim-autopairs',             -- Automatically input pairs of '', (), etc
 
--- Comments
-paq 'b3nj5m1n/kommentary'               -- Plugin for toggling comments
+  -- Comments
+  'b3nj5m1n/kommentary',               -- Plugin for toggling comments
 
--- Colors
-paq 'joshdick/onedark.vim'              -- Onedark colorscheme
+  -- Colors
+  'joshdick/onedark.vim',              -- Onedark colorscheme
 
--- Use nvim in firefox
-paq {'glacambre/firenvim', run=vim.fn['firenvim#install']}
+  -- Use nvim in firefox
+  {'glacambre/firenvim', run=vim.fn['firenvim#install']},
 
--- Final touches
-paq 'psliwka/vim-smoothie'              -- Smooth scroll
-paq 'edluffy/specs.nvim'                -- Small animation when cursor jumps
-paq 'junegunn/goyo.vim'                 -- Plugin for focus and removing distractions
-paq 'mhinz/vim-startify'                -- Start menu
-paq 'tpope/vim-eunuch'                  -- Some shell-like commands for vim
+  -- Visual effects
+  'psliwka/vim-smoothie',              -- Smooth scroll
+  'edluffy/specs.nvim',                -- Small animation when cursor jumps
+
+  -- Final touches
+  'junegunn/goyo.vim',                 -- Plugin for focus and removing distractions
+  'mhinz/vim-startify',                -- Start menu
+  'tpope/vim-eunuch',                  -- Some shell-like commands for vim
+}
