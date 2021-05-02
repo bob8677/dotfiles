@@ -17,9 +17,9 @@ lsp = require 'lspconfig'
 
 -- Custom keybindings that only happen with lsp on
 function custom_lsp_attach(client)
-	vim.api.nvim_buf_set_keymap(0, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true})
-	vim.api.nvim_buf_set_keymap(0, 'n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true})
-	require('completion').on_attach()
+  vim.api.nvim_buf_set_keymap(0, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true})
+  vim.api.nvim_buf_set_keymap(0, 'n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true})
+  require('completion').on_attach()
 end
 
 -- C
@@ -30,28 +30,28 @@ lsp.bashls.setup{ on_attach = custom_lsp_attach }
 
 -- Lua
 lsp.sumneko_lua.setup{
-    cmd = {'lua-language-server', '-E',  '/usr/share/lua-language-server/main.lua'},
-    setting = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua
-                version = 'LuaJIT',
-                -- Setup lua path
-                path = vim.split(package.path, ';'),
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {'vim'},
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = {
-                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-                },
-            },
+  cmd = {'lua-language-server', '-E',  '/usr/share/lua-language-server/main.lua'},
+  setting = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua
+        version = 'LuaJIT',
+        -- Setup lua path
+        path = vim.split(package.path, ';'),
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
         },
+      },
     },
+  },
 
-    on_attach = custom_lsp_attach
+  on_attach = custom_lsp_attach
 }

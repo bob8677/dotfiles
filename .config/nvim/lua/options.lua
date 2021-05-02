@@ -27,7 +27,7 @@ opt('w', 'relativenumber', true)                              -- Relative line n
 opt('w', 'foldmethod', 'expr')                                -- TS based folding
 opt('w', 'foldexpr', 'nvim_treesitter#foldexpr()')            -- TS based folding
 opt('o', 'foldlevelstart', 999)                               -- Open all folds at start
-opt('o', 'tabstop', 4)                               -- Open all folds at start
+opt('o', 'tabstop', 4)                                        -- Set tab spaces to a more reasonable default
 
 vim.cmd 'let g:indent_blankline_use_treesitter = v:true'
 vim.cmd "let g:indent_blankline_context_patterns = ['class']"

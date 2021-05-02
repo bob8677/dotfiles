@@ -16,7 +16,7 @@ paq{'savq/paq-nvim', opt=true}          -- Let Paq manage itself
 local function install(packages)
   for i, package in ipairs(packages) do
     paq(package)
-	end
+  end
 end
 
 install {
@@ -46,6 +46,7 @@ install {
     'lukas-reineke/indent-blankline.nvim',
     branch='lua',
   },
+  'editorconfig/editorconfig-vim',     -- Configuration per project
 
   -- Statusline
   'itchyny/lightline.vim',             -- Lightline

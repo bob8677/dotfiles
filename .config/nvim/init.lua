@@ -21,5 +21,5 @@ require 'lsp'
 
 -- Import firenvim configuration
 if vim.g.started_by_firenvim then
-	vim.cmd'source ~/.config/nvim/firenvim.vim'
+  vim.cmd'source ~/.config/nvim/firenvim.vim'
 end
