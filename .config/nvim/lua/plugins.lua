@@ -24,9 +24,10 @@ paq 'romgrk/nvim-treesitter-context'    -- Add context to the top of the buffer 
 paq 'p00f/nvim-ts-rainbow'              -- Rainbow code using TS
 paq 'nvim-treesitter/nvim-treesitter-refactor'
 
+
 -- Git
 paq 'tpope/vim-fugitive'                -- Git integration
-paq 'airblade/vim-gitgutter'            -- Add diff info to the sign column
+paq 'lewis6991/gitsigns.nvim'           -- Add diff info to the sign column
 
 -- Fuzzy finder
 paq 'nvim-telescope/telescope.nvim'     -- Fuzzy finder made in lua
@@ -55,6 +56,7 @@ paq {'glacambre/firenvim', run=vim.fn['firenvim#install']}
 
 -- Final touches
 paq 'psliwka/vim-smoothie'              -- Smooth scroll
+paq 'edluffy/specs.nvim'                -- Small animation when cursor jumps
 paq 'junegunn/goyo.vim'                 -- Plugin for focus and removing distractions
 paq 'mhinz/vim-startify'                -- Start menu
 paq 'tpope/vim-eunuch'                  -- Some shell-like commands for vim

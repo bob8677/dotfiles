@@ -15,7 +15,6 @@ local function opt(scope, key, value)
 end
 
 opt('o', 'mouse', 'a')                                        -- Use the mouse
-opt('o', 'updatetime', 100)                                   -- Update the swap file quickly - for gitgutter
 opt('o', 'termguicolors', true)                               -- Enable full colors in term
 opt('o', 'clipboard', 'unnamedplus')                          -- Use the system clipboard
 opt('o', 'completeopt', 'menuone,noinsert,noselect')          -- Use the system clipboard
@@ -50,26 +49,6 @@ vim.g.completion_chain_complete_list = {
   },
 }
 
-local previewers = require('telescope.previewers')
-local pickers = require('telescope.pickers')
-local sorters = require('telescope.sorters')
-local finders = require('telescope.finders')
-
-function my_custom_picker(results)
-  pickers.new {
-    results_title = 'Resources',
-    -- Run an external command and show the results in the finder window
-    finder = finders.new_oneshot_job({'find', '.', '-type', 'd', '-not', '-path', '\'*/.*\''}),
-    sorter = sorters.get_fuzzy_file(),
-    previewer = previewers.new_termopen_previewer {
-      -- Execute another command using the highlighted entry
-      get_command = function(entry)
-        return {'echo', entry.value}
-      end
-    },
-  }:find()
-end
-
 -- Treesitter configuration
 require'nvim-treesitter.configs'.setup {
   -- Modules and its options go here
@@ -84,5 +63,38 @@ require'nvim-treesitter.configs'.setup {
         goto_previous_usage = "[r",
       },
     },
+  },
+}
+
+-- Config to cursor animation when switching buffers and things
+require('specs').setup{
+  show_jumps  = true,
+  min_jump = 10,
+  popup = {
+    delay_ms = 0, -- delay before popup displays
+    inc_ms = 10, -- time increments used for fade/resize effects
+    blend = 50, -- starting blend, between 0-100 (fully transparent), see :h winblend
+    width = 30,
+    winhl = "PMenu",
+    fader = require('specs').exp_fader,
+    resizer = require('specs').shrink_resizer
+  },
+  ignore_filetypes = {},
+  ignore_buftypes = {
+    nofile = true,
+  },
+}
+
+-- Gitsign (git diff) setup
+require('gitsigns').setup {
+  signs = {
+    add          = {hl = 'GitGutterAdd'   , text = '│', numhl='GitGutterAdd'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'GitGutterChange', text = '│', numhl='GitGutterChange', linehl='GitSignsChangeLn'},
+    delete       = {hl = 'GitGutterDelete', text = '_', numhl='GitGutterDelete', linehl='GitSignsDeleteLn'},
+    topdelete    = {hl = 'GitGutterDelete', text = '‾', numhl='GitGutterDelete', linehl='GitSignsDeleteLn'},
+    changedelete = {hl = 'GitGutterChange', text = '~', numhl='GitGutterChange', linehl='GitSignsChangeLn'},
+  },
+  yadm = {
+    enable = os.execute('git rev-parse --git-dir') == 32768
   },
 }
